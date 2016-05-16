@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1463340056652.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1C1A5CF5",
+    "lastKnownWriteTime" : 1852383264,
+    "last_content_update" : -2147483648,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "usos5lokiu",
+        "caption" : "stepdata",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=stepdata&cache_key=usos5lokiu",
+        "displayedObservations" : "17568",
+        "environment" : "",
+        "object" : "stepdata",
+        "totalObservations" : "17568",
+        "variables" : "3"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

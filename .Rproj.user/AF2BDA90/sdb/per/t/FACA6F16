@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1463346156716.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "FACA6F16",
+    "lastKnownWriteTime" : 1463331034,
+    "last_content_update" : -2147483648,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "asoeygm4vo",
+        "caption" : "stepfixedday",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=stepfixedday&cache_key=asoeygm4vo",
+        "displayedObservations" : 17568,
+        "environment" : "",
+        "object" : "stepfixedday",
+        "totalObservations" : 17568,
+        "variables" : 4
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

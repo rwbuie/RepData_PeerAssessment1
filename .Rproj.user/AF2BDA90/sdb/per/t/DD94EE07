@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1463347138076.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DD94EE07",
+    "lastKnownWriteTime" : 6,
+    "last_content_update" : -2147483648,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "jqoyt93j2o",
+        "caption" : "stepfixeddatemean",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=stepfixeddatemean&cache_key=jqoyt93j2o",
+        "displayedObservations" : 576,
+        "environment" : "",
+        "object" : "stepfixeddatemean",
+        "totalObservations" : 576,
+        "variables" : 3
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

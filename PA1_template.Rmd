@@ -5,21 +5,97 @@ output:
     keep_md: true
 ---
 
+## Loading libraries and globals
+```{r setup}
+library(knitr)
+library(ggplot2)
+library(lattice)
+library(dplyr)
+opts_chunk$set(echo=TRUE)
+
+```
 
 ## Loading and preprocessing the data
-
+```{r load and transform}
+#read our data and save to a df
+stepdata<-read.csv(unz("activity.zip","activity.csv"))
+#create a df that ignores all NA values
+nonastepdata<-stepdata[complete.cases(stepdata),]
+```
 
 
 ## What is mean total number of steps taken per day?
+```{r}
+#total steps per day...
+nonastepdatagbd<-group_by(nonastepdata,date)
+as.data.frame(summarize(nonastepdatagbd, sum(steps)))
 
+#I don't know why they require a historgram of steps per day for each day, it will be pointlessly dense... but here it is.
+plot1<-ggplot(nonastepdata, aes(x=steps, color=date))
+plot1+geom_histogram(binwidth = 150)
+
+#calculating the mean and median steps per day
+nonastepdatagbdmean<- summarize(nonastepdatagbd, mean(steps))
+nonastepdatagbdmed<- summarize(nonastepdatagbd, median(steps))
+as.data.frame(nonastepdatagbdmean)
+as.data.frame(nonastepdatagbdmed)
+
+
+```
 
 
 ## What is the average daily activity pattern?
+```{r}
+#first, let's create a chart of average steps per interval
+nonastepdatagbimean <- group_by(nonastepdata, interval) %>% summarize(stepmean=mean(steps))
+ggplot(nonastepdatagbimean, aes(x=interval, y=stepmean))+geom_line()
 
+
+#next, which 5 minute interval has the highest averagte mean...
+nonastepdatagbimean[which.max(nonastepdatagbimean$stepmean),1]
+
+```
 
 
 ## Imputing missing values
+```{r}
+#calculate total number of NA columns from our original set
+nrow( stepdata[!complete.cases(stepdata),])
+stepfixed<- stepdata
 
+#fill in missing values with the interval's mean, rounded to the 1's place
+i=0
+for(i in 1:nrow(stepfixed)){
+
+  if(is.na(stepfixed[i,1])==TRUE) {
+ 
+      stepfixed[i,1]<-round(mean(nonastepdata[nonastepdata$interval==stepfixed[i,3],1]))
+  }
+}
+
+#the new data set has been made, and is called stepfixed
+
+#repeat the first calculations using the new data
+plot2<-ggplot(stepfixed, aes(x=steps, color=date))
+plot2+geom_histogram(binwidth = 150)
+
+#calculating the mean and median steps per day
+stepfixeddatagbdmean<- summarize(stepfixed, mean=mean(steps))
+stepfixeddatagbdmed<- summarize(stepfixed, mean=median(steps))
+as.data.frame(stepfixeddatagbdmean)
+as.data.frame(stepfixeddatagbdmed)
+
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+stepfixedday<-stepfixed
+#this code was inspired by akrun's solution
+stepfixedday[,4]<-c("weekday","weekend")[weekdays(as.Date(stepfixed[,2])) %in% c("Sunday","Saturday")+1L]
+
+#now for the plot
+stepfixeddatemean <- group_by(stepfixedday, interval, V4 ) %>% summarize(stepmean=mean(steps))
+ggplot(stepfixeddatemean, aes(x=interval, y=stepmean, color=V4))+geom_line()+facet_wrap(~V4)
+
+```

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Reproducible Research: Peer Assessment 1\"\noutput: \n  html_document:\n    keep_md: true\n---\n\n## Loading libraries and globals\n```{r setup}\nlibrary(knitr)\nlibrary(ggplot2)\nlibrary(lattice)\nlibrary(dplyr)\nopts_chunk$set(echo=TRUE)\n\n```\n\n## Loading and preprocessing the data\n```{r load and transform}\n#read our data and save to a df\nstepdata<-read.csv(unz(\"activity.zip\",\"activity.csv\"))\n#create a df that ignores all NA values\nnonastepdata<-stepdata[complete.cases(stepdata),]\n```\n\n\n## What is mean total number of steps taken per day?\n```{r}\n#total steps per day...\nnonastepdatagbd<-group_by(nonastepdata,date)\nas.data.frame(summarize(nonastepdatagbd, sum(steps)))\n\n#I don't know why they require a historgram of steps per day for each day, it will be pointlessly dense... but here it is.\nplot1<-ggplot(nonastepdata, aes(x=steps, color=date))\nplot1+geom_histogram(binwidth = 150)\n\n#calculating the mean and median steps per day\nnonastepdatagbdmean<- summarize(nonastepdatagbd, mean(steps))\nnonastepdatagbdmed<- summarize(nonastepdatagbd, median(steps))\nas.data.frame(nonastepdatagbdmean)\nas.data.frame(nonastepdatagbdmed)\n\n\n```\n\n\n## What is the average daily activity pattern?\n```{r}\n#first, let's create a chart of average steps per interval\nnonastepdatagbimean <- group_by(nonastepdata, interval) %>% summarize(stepmean=mean(steps))\nggplot(nonastepdatagbimean, aes(x=interval, y=stepmean))+geom_line()\n\n\n#next, which 5 minute interval has the highest averagte mean...\nnonastepdatagbimean[which.max(nonastepdatagbimean$stepmean),1]\n\n```\n\n\n## Imputing missing values\n```{r}\n#calculate total number of NA columns from our original set\nnrow( stepdata[!complete.cases(stepdata),])\nstepfixed<- stepdata\n\n#fill in missing values with the interval's mean, rounded to the 1's place\ni=0\nfor(i in 1:nrow(stepfixed)){\n\n  if(is.na(stepfixed[i,1])==TRUE) {\n \n      stepfixed[i,1]<-round(mean(nonastepdata[nonastepdata$interval==stepfixed[i,3],1]))\n  }\n}\n\n#the new data set has been made, and is called stepfixed\n\n#repeat the first calculations using the new data\nplot2<-ggplot(stepfixed, aes(x=steps, color=date))\nplot2+geom_histogram(binwidth = 150)\n\n#calculating the mean and median steps per day\nstepfixeddatagbdmean<- summarize(stepfixed, mean=mean(steps))\nstepfixeddatagbdmed<- summarize(stepfixed, mean=median(steps))\nas.data.frame(stepfixeddatagbdmean)\nas.data.frame(stepfixeddatagbdmed)\n\n```\n\n\n## Are there differences in activity patterns between weekdays and weekends?\n```{r}\nstepfixedday<-stepfixed\n#this code was inspired by akrun's solution\nstepfixedday[,4]<-c(\"weekday\",\"weekend\")[weekdays(as.Date(stepfixed[,2])) %in% c(\"Sunday\",\"Saturday\")+1L]\n\n#now for the plot\nstepfixeddatemean <- group_by(stepfixedday, interval, V4 ) %>% summarize(stepmean=mean(steps))\nggplot(stepfixeddatemean, aes(x=interval, y=stepmean, color=V4))+geom_line()+facet_wrap(~V4)\n\n```\n",
+    "created" : 1463304954471.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1281269328",
+    "id" : "8168B29F",
+    "lastKnownWriteTime" : 1463361507,
+    "last_content_update" : -2147483648,
+    "path" : "C:/Users/blackie/OneDrive/Coursework and Study Matterials/Coursera Data Science Specialization/Reproducable Research/week2/RepData_PeerAssessment1/PA1_template.Rmd",
+    "project_path" : "PA1_template.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

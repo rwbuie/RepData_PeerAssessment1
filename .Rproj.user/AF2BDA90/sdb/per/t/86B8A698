@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1463343527250.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "86B8A698",
+    "lastKnownWriteTime" : 2,
+    "last_content_update" : -2147483648,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "94nuvkjd9p",
+        "caption" : "stepfixed",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=stepfixed&cache_key=94nuvkjd9p",
+        "displayedObservations" : "17568",
+        "environment" : "",
+        "object" : "stepfixed",
+        "totalObservations" : "17568",
+        "variables" : "3"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
